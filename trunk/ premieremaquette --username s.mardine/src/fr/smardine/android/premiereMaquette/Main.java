@@ -2,7 +2,6 @@ package fr.smardine.android.premiereMaquette;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
