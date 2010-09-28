@@ -13,6 +13,7 @@
 		
     <activity android:name="fr.smardine.android.premiereMaquette.FicheClient">
 </activity>
+<activity android:name="Preferences"></activity>
 </application>
     <uses-sdk android:minSdkVersion="7" />
 

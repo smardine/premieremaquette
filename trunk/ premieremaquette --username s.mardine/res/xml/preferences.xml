@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceCategory android:title="Configuration utilisateur">
+<EditTextPreference android:key="username" android:title="Utilisateur" android:summary="Saisir votre nom utilisateur"></EditTextPreference>
+<EditTextPreference android:key="password" android:title="Mot de passe" android:summary="Saisir votre mot de passe"></EditTextPreference>
+</PreferenceCategory>
+</PreferenceScreen>

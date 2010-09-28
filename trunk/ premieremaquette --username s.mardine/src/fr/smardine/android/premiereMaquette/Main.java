@@ -2,15 +2,19 @@ package fr.smardine.android.premiereMaquette;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
-import fr.smardine.android.premiereMaquette.R;
 
 public class Main extends Activity implements OnClickListener {
-	private  Button BoutonClient,BoutonTournée;
+	
+	//
+	private  Button BoutonClient,BoutonTournée,BoutonParametres;
+	SharedPreferences preferences;
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -25,7 +29,12 @@ public class Main extends Activity implements OnClickListener {
         BoutonClient.setOnClickListener(this);
         BoutonTournée = (Button)findViewById (R.id.BtTournee);
         BoutonTournée.setOnClickListener (this);
-        //finish();
+        
+        BoutonParametres = (Button)findViewById(R.id.BtParam);
+        BoutonParametres.setOnClickListener(this);
+      
+        //initialisation des preferences
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
        
         
     }
@@ -44,6 +53,16 @@ public class Main extends Activity implements OnClickListener {
 			popUp("bouton tournée");
 			
 		}
+		if (v==BoutonParametres){
+			String username = preferences.getString("username", "n/a");
+			String password = preferences.getString("password", "n/a");
+			Toast.makeText(Main.this,
+					"utilisateur: "+username+ " et passe "+password, 
+					Toast.LENGTH_LONG).show();
+			Intent i=new Intent(Main.this, Preferences.class);
+    		startActivity(i);
+    		
+		}
 		
 		
 	}
@@ -55,7 +74,6 @@ public class Main extends Activity implements OnClickListener {
     @Override
     protected void onRestart() {
         super.onRestart();
- 
         popUp("onRestart()");
     }
  
@@ -109,22 +127,31 @@ public class Main extends Activity implements OnClickListener {
     protected void onPause() {
         super.onPause();
  
-        if (isFinishing()) {
+        if (isFinishing()) {//si le SYSTEME detecte que l'on sort de l'application 
             popUp("onPause, l'utilisateur à demandé la fermeture via un finish()");
+           
+            //d'apres le cahier des charges, seul le nom d'utilisateur doit etre conservé, 
+            //le mot de passe doit etre effacé lorsqu'on quitte l'application
+            //definition d'un editeur de preferences
+            SharedPreferences.Editor editor = preferences.edit();
+            //on affecte la valeur "" à l'entrée "password" du fichier Preferences.xml
+            editor.putString("password", "");
+            //on "commit" afin de valider les modifications, 
+            //il pourrait y avoir d'autre insctruction avant le commit
+            editor.commit();
             finish();
 			onStop();
 			onDestroy();
 			//a faire avant  System.exit pour supprimer correctement toute les données presentes en memoire
 			System.runFinalizersOnExit(true); 
 			System.exit(0);
-        } else {
+        } else {//sinon, on pert juste le "focus sur l'appli (lors d'un appel telephonique entrant par exemple)
             popUp("onPause, l'utilisateur n'a pas demandé la fermeture via un finish()");
         }
     }
 	public void OnDestroy() {
 		super.onDestroy();
-		// popUp("onDestroy()");
-		//System.out.println ("extinction");
+		
 	}
 
 	public void popUp(String message) {
