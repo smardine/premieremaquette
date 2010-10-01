@@ -1,6 +1,5 @@
 package fr.smardine.android.premiereMaquette;
 
-import Thread.ThreadDownload;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -52,10 +51,7 @@ public class Main extends Activity implements OnClickListener {
 		}
 		if (v== BoutonTournée){
 			popUp("telechargement");
-			//RecupXmlFile.DownloadFromUrl("PcHelpWare.exe","pchelpware.exe");
-			//ThreadDownload dl = new ThreadDownload ("http://support.microconcept.fr/Outils%5CTeleMaintenance/PcHelpWare.exe",null);
-			//dl.start();
-			//String ContenuFichier = RecupXmlFile.load ("http://support.microconcept.fr/Outils%5CTeleMaintenance/PcHelpWare.exe",50*1024);
+			
 			Intent intent = new Intent(Main.this, Preferences.class);
 			//on demarre la nouvelle activité
 			startActivity(intent);

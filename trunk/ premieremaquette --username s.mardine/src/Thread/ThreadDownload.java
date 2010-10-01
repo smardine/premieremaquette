@@ -7,10 +7,8 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-import fr.smardine.android.premiereMaquette.R;
-
+import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.RemoteViews;
 
 public class ThreadDownload extends Thread {
 	
@@ -20,7 +18,8 @@ public class ThreadDownload extends Thread {
 	
 	protected String adresse;
 	protected ProgressBar Barreprogression;
-	//protected JLabel TexteOperation,TexteMessageUtilisateur,TexteVitesse;
+	protected EditText MessageVitesse,MessageStatus;
+	
 	
 	
 	
@@ -56,7 +55,6 @@ public class ThreadDownload extends Thread {
 		InputStream input = null;
 		FileOutputStream writeFile = null;
 		String fileName = null;
-		String repTemp = null;
 		long HeureDebut;
 		long HeureActuelle;
 		
@@ -66,8 +64,8 @@ public class ThreadDownload extends Thread {
 		{
 			URL url = new URL(adresse);
 			URLConnection connection = url.openConnection();
-			
-			
+			//String message = "Téléchargement en cours";
+		//	MessageStatus.setText(message);
 			final int fileLength = connection.getContentLength();
 
 			if (fileLength == -1)
@@ -107,6 +105,7 @@ public class ThreadDownload extends Thread {
 						
 				//TexteVitesse.setText("Vitesse Actuelle : "+ Vitesse + " Ko/s");
 				System.out.println("Vitesse Actuelle : "+ Vitesse + " Ko/s");
+				//MessageVitesse.setText("Vitesse Actuelle : "+ Vitesse + " Ko/s");
 				
 				Barreprogression.setProgress(Pourcent);
 
@@ -128,8 +127,9 @@ public class ThreadDownload extends Thread {
 				writeFile.close();
 				input.close();
 				
-				System.out.println("DL terminé");
+			//	System.out.println("DL terminé");
 				Barreprogression.setProgress(0);
+				//MessageStatus.setText("Telechargement terminé");
 			}
 			catch (IOException e)
 			{
