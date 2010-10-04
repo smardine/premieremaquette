@@ -36,11 +36,12 @@ public class ThreadDownload extends Thread {
      *  
      */
 	
-	public ThreadDownload (String url,ProgressBar progress)
+	public ThreadDownload (String url,ProgressBar progress,EditText textVitesse)
 			
 			{
 		adresse=url;
 		Barreprogression=progress;
+		MessageVitesse=textVitesse;
 		
 		
 		
@@ -50,7 +51,7 @@ public class ThreadDownload extends Thread {
 		
 		//TexteOperation.setText(" Opération (s) en cours: ");
 		//TexteMessageUtilisateur.setText("Téléchargement de Pc Helpware");
-		//TexteVitesse.setText("Vitesse Actuelle : 0 Ko/s");
+		MessageVitesse.setText("Vitesse Actuelle : 0 Ko/s");
 		
 		InputStream input = null;
 		FileOutputStream writeFile = null;
@@ -86,7 +87,7 @@ public class ThreadDownload extends Thread {
 			}
 			//VariableEnvironement.VarEnvSystemTotal();
 			//repTemp = VariableEnvironement.VarEnvSystem("TMP");
-			String PATH = "/data/data/fr.simon.test/dl/";
+			String PATH = "/data/data/fr.smardine.android.premiereMaquette/dl/";
 			//String PATH = "/sdcard/dl/";
 			File path = new File (PATH);
 			if (!path.exists()){

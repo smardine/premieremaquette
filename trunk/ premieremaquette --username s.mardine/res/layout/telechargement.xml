@@ -24,4 +24,5 @@ style="?android:attr/progressBarStyleHorizontal"
 
 
 
+<EditText android:text="@+id/EditText01" android:id="@+id/EditText01" android:layout_below="@id/ProgressBar01" android:layout_width="wrap_content" android:layout_height="wrap_content"></EditText>
 </RelativeLayout>
