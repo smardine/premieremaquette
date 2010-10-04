@@ -3,34 +3,32 @@
       package="fr.smardine.android.premiereMaquette"
       android:versionCode="1"
       android:versionName="1.0">
-    <application android:label="@string/app_name" android:icon="@drawable/eqx_icon">
-        <activity android:label="@string/app_name" android:name="fr.smardine.android.premiereMaquette.Main" android:permission="android.permission.INTERNET">
+     <activity android:label="@string/app_name" android:name="Main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-		
-    <activity android:name="fr.smardine.android.premiereMaquette.FicheClient" android:permission="android.permission.INTERNET">
-</activity>
-<activity android:name="Preferences" android:permission="android.permission.INTERNET"></activity>
+        </activity><application android:icon="@drawable/icon" android:label="@string/app_name">
+        
 
-
-
-
+    <activity android:name="Main">
+    <intent-filter>
+    <category android:name="android.intent.category.LAUNCHER"></category>
+	<action android:name="android.intent.action.MAIN"></action>
+	</intent-filter>
+	</activity>
+<activity android:name="FicheClient"></activity>
+<activity android:name="Preferences"></activity>
 <activity android:name="DownloadFile"></activity>
+
 </application>
-    <uses-sdk android:minSdkVersion="7" />
 
-	<uses-permission android:name="android.permission.VIBRATE">
-	</uses-permission>
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE">
+<uses-sdk android:minSdkVersion="7" />
 
-</uses-permission>
-
+<uses-permission android:name="android.permission.VIBRATE"></uses-permission>
 
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
-
-        <uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"></uses-permission>
+<uses-permission android:name="android.permission.READ_PHONE_STATE"></uses-permission>
+<permission-group android:name="android.permission-group.STORAGE"></permission-group>
 </manifest> 

@@ -50,24 +50,20 @@ public class Main extends Activity implements OnClickListener {
 			startActivity(intent);
 		}
 		if (v== BoutonTournée){
-			popUp("telechargement");
+			//popUp("telechargement");
 			
-			Intent intent = new Intent(Main.this, Preferences.class);
+			//Intent intent = new Intent(Main.this, Preferences.class);
 			//on demarre la nouvelle activité
-			startActivity(intent);
+			//startActivity(intent);
 			
 			
 			
 			
 		}
 		if (v==BoutonParametres){
-			String username = preferences.getString("username", "n/a");
-			String password = preferences.getString("password", "n/a");
-			Toast.makeText(Main.this,
-					"utilisateur: "+username+ " et passe "+password, 
-					Toast.LENGTH_LONG).show();
-			Intent i=new Intent(Main.this, Preferences.class);
-    		startActivity(i);
+			Intent intent = new Intent(Main.this, Preferences.class);
+			//on demarre la nouvelle activité
+			startActivity(intent);
     		
 		}
 		

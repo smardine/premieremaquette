@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import fr.smardine.android.premiereMaquette.R;
+
 
 public class FicheClient extends Activity implements OnClickListener {
 

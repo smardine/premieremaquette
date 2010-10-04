@@ -86,7 +86,12 @@ public class ThreadDownload extends Thread {
 			}
 			//VariableEnvironement.VarEnvSystemTotal();
 			//repTemp = VariableEnvironement.VarEnvSystem("TMP");
-			String PATH = "/mnt/sdcard/dd/";
+			String PATH = "/data/data/fr.simon.test/dl/";
+			//String PATH = "/sdcard/dl/";
+			File path = new File (PATH);
+			if (!path.exists()){
+				path.mkdirs();
+			}
 			File fichier = new File (PATH+fileName);
 			writeFile = new FileOutputStream(PATH+fileName);
 			//lecture par segment de 4Ko
@@ -110,14 +115,12 @@ public class ThreadDownload extends Thread {
 				Barreprogression.setProgress(Pourcent);
 
 			}
-		
-				
-			
 			writeFile.flush();
 		}
 		catch (IOException e)
 		{
 			System.out.println("Error while trying to download the file.");
+			System.out.println(e);
 			e.printStackTrace();
 		}
 		finally
@@ -133,6 +136,8 @@ public class ThreadDownload extends Thread {
 			}
 			catch (IOException e)
 			{
+				
+				System.out.println(e);
 				e.printStackTrace();
 			}
 		}
