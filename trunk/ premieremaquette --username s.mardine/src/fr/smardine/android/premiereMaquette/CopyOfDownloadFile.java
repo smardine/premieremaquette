@@ -16,12 +16,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class CopyOfDownloadFile extends Activity implements OnClickListener{
 	
 	
 	ProgressBar Progress;
-	EditText MessageVitesse;
+	TextView MessageVitesse;
 	int Pourcent=0;
 	 // Need handler for callbacks to the UI thread
 
@@ -41,7 +42,7 @@ public class CopyOfDownloadFile extends Activity implements OnClickListener{
 	        //definition du titre
 	        this.setTitle("Synchronisation");
 	      Progress=(ProgressBar) findViewById(R.id.ProgressBar01);
-	      MessageVitesse=(EditText) findViewById (R.id.EditText01);
+	      MessageVitesse=(TextView) findViewById (R.id.TextView01);
 	      
 	       
 	}
@@ -69,15 +70,15 @@ public class CopyOfDownloadFile extends Activity implements OnClickListener{
 	        // Fire off a thread to do some work that we shouldn't do directly in the UI thread
 	        Thread t = new Thread() {
 	            public void run() {
-	            Object mresult= LanceTelechargement("http://downloads.sourceforge.net/project/carnetclient/setup/setupCarnetClient.exe");
+	            Object mresult= LanceTelechargement("http://downloads.sourceforge.net/project/carnetclient/setup/setupCarnetClient.exe",MessageVitesse);
 	                mHandler.post(mUpdateResults);
 	            }
 	        };
 	        t.start();
 	    }
 
-	    protected <updateResultsInUi> Object LanceTelechargement(String adresse) {
-	    	MessageVitesse.setText("Vitesse Actuelle : 0 Ko/s");
+	    protected <updateResultsInUi> Object LanceTelechargement(String adresse,TextView MessageVitesses) {
+	    	MessageVitesses.setText("Vitesse Actuelle : 0 Ko/s");
 			
 			InputStream input = null;
 			FileOutputStream writeFile = null;
@@ -124,7 +125,7 @@ public class CopyOfDownloadFile extends Activity implements OnClickListener{
 				//lecture par segment de 4Ko
 				byte[] buffer = new byte[4096*1024];
 				int read;
-
+				long Vitesse = 0;
 				while ((read = input.read(buffer)) > 0){
 					writeFile.write(buffer, 0, read);
 					long TailleEncours = fichier.length();
@@ -133,16 +134,19 @@ public class CopyOfDownloadFile extends Activity implements OnClickListener{
 					
 					HeureActuelle = System.currentTimeMillis();
 					
-					long Vitesse = (long) (TailleEncours / (HeureActuelle-HeureDebut));
+					 Vitesse = (long) (TailleEncours / (HeureActuelle-HeureDebut));
 							
 					//TexteVitesse.setText("Vitesse Actuelle : "+ Vitesse + " Ko/s");
 					System.out.println("Vitesse Actuelle : "+ Vitesse + " Ko/s");
-					updateResultsInUi (Pourcent,"Vitesse Actuelle : "+ Vitesse + " Ko/s");
-					//MessageVitesse.setText("Vitesse Actuelle : "+ Vitesse + " Ko/s");
+					//updateResultsInUi (Pourcent,"Vitesse Actuelle : "+ Vitesse + " Ko/s");
+					 Progress.setProgress(Pourcent);
+					 CharSequence vitesse = ("Vitesse Actuelle : "+ Vitesse + " Ko/s");
+					 MessageVitesses.setText(vitesse);
 					
 					//return Pourcent;
 
 				}
+				MessageVitesses.setText("Vitesse Actuelle : "+ Vitesse + " Ko/s");
 				writeFile.flush();
 			}
 			catch (IOException e)

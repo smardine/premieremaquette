@@ -8,12 +8,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class DownloadFile extends Activity implements OnClickListener{
 	
 	
 	ProgressBar Progress;
-	EditText MessageVitesse;
+	TextView MessageVitesse;
 	
 	
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +24,7 @@ public class DownloadFile extends Activity implements OnClickListener{
 	        //definition du titre
 	        this.setTitle("Synchronisation");
 	      Progress=(ProgressBar) findViewById(R.id.ProgressBar01);
-	      MessageVitesse=(EditText) findViewById (R.id.EditText01);
+	      MessageVitesse=(TextView) findViewById (R.id.TextView01);
 	      
 	       
 	}

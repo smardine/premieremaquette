@@ -37,7 +37,7 @@ public class Preferences extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if (v== BoutonSynchro){
-			Intent intent = new Intent(Preferences.this, DownloadFile.class);
+			Intent intent = new Intent(Preferences.this, CopyOfDownloadFile.class);
 			//on demarre la nouvelle activité
 			startActivity(intent);
 		}

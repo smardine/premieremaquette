@@ -9,6 +9,7 @@ import java.net.URLConnection;
 
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class ThreadDownload extends Thread {
 	
@@ -18,7 +19,7 @@ public class ThreadDownload extends Thread {
 	
 	protected String adresse;
 	protected ProgressBar Barreprogression;
-	protected EditText MessageVitesse,MessageStatus;
+	protected TextView MessageVitesse,MessageStatus;
 	
 	
 	
@@ -36,7 +37,7 @@ public class ThreadDownload extends Thread {
      *  
      */
 	
-	public ThreadDownload (String url,ProgressBar progress,EditText textVitesse)
+	public ThreadDownload (String url,ProgressBar progress,TextView textVitesse)
 			
 			{
 		adresse=url;
