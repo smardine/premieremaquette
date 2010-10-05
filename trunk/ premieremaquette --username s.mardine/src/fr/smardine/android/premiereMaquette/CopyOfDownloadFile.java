@@ -7,33 +7,26 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
-
-import Thread.ThreadDownload;
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class CopyOfDownloadFile extends Activity implements OnClickListener{
 	
 	
-	ProgressBar Progress;
-	TextView MessageVitesse;
+	//ProgressBar Progress;
+	//TextView MessageVitesse;
 	int Pourcent=0;
+	
+	 long Vitesse=0;
 	 // Need handler for callbacks to the UI thread
 
-	 final Handler mHandler = new Handler();
-
-	    // Create runnable for posting
-	    final Runnable mUpdateResults = new Runnable() {
-	        public void run() {
-	            updateResultsInUi(0, "Vitesse Actuelle : 0 Ko/s");
-	        }
-	    };
+	   
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -41,45 +34,64 @@ public class CopyOfDownloadFile extends Activity implements OnClickListener{
 		 setContentView(R.layout.telechargement);
 	        //definition du titre
 	        this.setTitle("Synchronisation");
-	      Progress=(ProgressBar) findViewById(R.id.ProgressBar01);
-	      MessageVitesse=(TextView) findViewById (R.id.TextView01);
 	      
+	       // creation du thread qui va rafraichir les valeur de progression et de vitesse
+	        updateUI();
+	        handler.removeCallbacks(updateTimeTask);
+			handler.postDelayed(updateTimeTask, 1000);	 
 	       
 	}
+	 private Handler handler = new Handler();
+	
+	private Runnable updateTimeTask = new Runnable() {
+		public void run() {
+			updateUI();
+			handler.postDelayed(this, 1000);
+		}
+	};
+	
+	private void updateUI() {
+			//on commence par recuperer les id des composants
+			final TextView MessageVitesse = (TextView) findViewById(R.id.TextView01);
+			final ProgressBar Progress = (ProgressBar) findViewById (R.id.ProgressBar01);
+					
+			//on affecte des valeurs aux composant
+			MessageVitesse.setText("Vitesse Actuelle : "+ Vitesse + " Ko/s");
+			Progress.setProgress(Pourcent);
+
+			}
+		
 	
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
-		
-		
-		
 	}
-	protected void onStart(){
-		super.onStart();
-	}
-	protected void onResume(){
-		super.onResume();
-		//ThreadDownload dl = new ThreadDownload ("http://downloads.sourceforge.net/project/carnetclient/setup/setupCarnetClient.exe",
-		//				Progress,MessageVitesse);
-		//	dl.start();
-		startLongRunningOperation();
+	protected void onStop() {
+		super.onStop();
+		handler.removeCallbacks(updateTimeTask);
 	}
 	
-	 protected void startLongRunningOperation() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        handler.removeCallbacks(updateTimeTask);
+        handler.postDelayed(updateTimeTask, 1000);
+        new DownloadFileTask().execute("http://downloads.sourceforge.net/project/carnetclient/setup/setupCarnetClient.exe");
+       
+    }
+    
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+    	if ( handler != null )
+    		handler.removeCallbacks(updateTimeTask);
+    	handler = null;		
+	}
+    
 
-	        // Fire off a thread to do some work that we shouldn't do directly in the UI thread
-	        Thread t = new Thread() {
-	            public void run() {
-	            Object mresult= LanceTelechargement("http://downloads.sourceforge.net/project/carnetclient/setup/setupCarnetClient.exe",MessageVitesse);
-	                mHandler.post(mUpdateResults);
-	            }
-	        };
-	        t.start();
-	    }
-
-	    protected <updateResultsInUi> Object LanceTelechargement(String adresse,TextView MessageVitesses) {
-	    	MessageVitesses.setText("Vitesse Actuelle : 0 Ko/s");
-			
+    
+private class DownloadFileTask extends AsyncTask {
+	   
+		protected Object doInBackground(Object... params) {
 			InputStream input = null;
 			FileOutputStream writeFile = null;
 			String fileName = null;
@@ -90,20 +102,17 @@ public class CopyOfDownloadFile extends Activity implements OnClickListener{
 			
 			try
 			{
-				URL url = new URL(adresse);
+				URL url = new URL(params[0].toString());//le param[0] est l'url passé dans la commande "execute"
 				URLConnection connection = url.openConnection();
-				//String message = "Téléchargement en cours";
-			//	MessageStatus.setText(message);
+				
 				final int fileLength = connection.getContentLength();
 
 				if (fileLength == -1)
 				{
 					System.out.println("Invalide URL or file.");
-					return null ;
+					return fileLength;
 				}
 				
-				//TexteTailleTotale.setText("Taille Totale : " +fileLength + "Octet(s)");
-
 				input = connection.getInputStream();
 				fileName = url.getFile().substring(url.getFile().lastIndexOf('/') + 1);
 				if (fileName.contains("%20")==true){
@@ -112,8 +121,7 @@ public class CopyOfDownloadFile extends Activity implements OnClickListener{
 				if (fileName.contains("&amp;")==true){
 					fileName=fileName.replaceAll("&amp;", " and ");
 				}
-				//VariableEnvironement.VarEnvSystemTotal();
-				//repTemp = VariableEnvironement.VarEnvSystem("TMP");
+				
 				String PATH = "/data/data/fr.smardine.android.premiereMaquette/dl/";
 				//String PATH = "/sdcard/dl/";
 				File path = new File (PATH);
@@ -125,7 +133,7 @@ public class CopyOfDownloadFile extends Activity implements OnClickListener{
 				//lecture par segment de 4Ko
 				byte[] buffer = new byte[4096*1024];
 				int read;
-				long Vitesse = 0;
+
 				while ((read = input.read(buffer)) > 0){
 					writeFile.write(buffer, 0, read);
 					long TailleEncours = fichier.length();
@@ -136,17 +144,10 @@ public class CopyOfDownloadFile extends Activity implements OnClickListener{
 					
 					 Vitesse = (long) (TailleEncours / (HeureActuelle-HeureDebut));
 							
-					//TexteVitesse.setText("Vitesse Actuelle : "+ Vitesse + " Ko/s");
-					System.out.println("Vitesse Actuelle : "+ Vitesse + " Ko/s");
-					//updateResultsInUi (Pourcent,"Vitesse Actuelle : "+ Vitesse + " Ko/s");
-					 Progress.setProgress(Pourcent);
-					 CharSequence vitesse = ("Vitesse Actuelle : "+ Vitesse + " Ko/s");
-					 MessageVitesses.setText(vitesse);
 					
-					//return Pourcent;
-
+					System.out.println("Vitesse Actuelle : "+ Vitesse + " Ko/s");
+					
 				}
-				MessageVitesses.setText("Vitesse Actuelle : "+ Vitesse + " Ko/s");
 				writeFile.flush();
 			}
 			catch (IOException e)
@@ -161,29 +162,15 @@ public class CopyOfDownloadFile extends Activity implements OnClickListener{
 				{
 					writeFile.close();
 					input.close();
-					
-				//	System.out.println("DL terminé");
-					//Barreprogression.setProgress(0);
-					//MessageStatus.setText("Telechargement terminé");
 				}
 				catch (IOException e)
 				{
-					
 					System.out.println(e);
 					e.printStackTrace();
 				}
 			}
-			return null;
-	}
-
-		private void updateResultsInUi(int progression, String vitesse) {
-
-	        // Back in the UI thread -- update our UI elements based on the data in mResults
-	       Progress.setProgress(progression);
-	       MessageVitesse.setText(vitesse);
-	    }
-
-
+			return fileName;
+		}
 	
-
+	}
 }

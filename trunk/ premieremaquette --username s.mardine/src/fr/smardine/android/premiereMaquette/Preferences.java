@@ -37,12 +37,11 @@ public class Preferences extends Activity implements OnClickListener{
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
 		if (v== BoutonSynchro){
-			Intent intent = new Intent(Preferences.this, CopyOfDownloadFile.class);
+			Intent intent = new Intent(Preferences.this, DownloadFile.class);
 			//on demarre la nouvelle activité
 			startActivity(intent);
 		}
-		//ThreadDownload dl = new ThreadDownload ("http://downloads.sourceforge.net/project/carnetclient/setup/setupCarnetClient.exe",Progress);
-		//dl.start();
+		
 		
 	}
 	protected void onPause(){
@@ -64,9 +63,6 @@ public class Preferences extends Activity implements OnClickListener{
         Password = preferences.getString ("password","mot de passe");
         idUtilisateur.setText(Finess);
         motdepasse.setText(Password);
-        
-       
-        
-	}
+    }
 
 }
