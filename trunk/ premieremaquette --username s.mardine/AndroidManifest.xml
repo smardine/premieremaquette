@@ -19,8 +19,9 @@
 	</activity>
 <activity android:name="FicheClient"></activity>
 <activity android:name="Preferences"></activity>
-<activity android:name="DownloadFile"></activity>
-<activity android:name="CopyOfDownloadFile"></activity>
+<activity android:name="DownloadFile" android:screenOrientation="portrait"></activity>
+
+
 
 </application>
 

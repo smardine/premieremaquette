@@ -26,4 +26,5 @@ style="?android:attr/progressBarStyleHorizontal"
 
 
 <TextView android:text="@+id/TextView01" android:id="@+id/TextView01" android:layout_below="@id/ProgressBar01" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+<TextView android:text="@+id/TextView02" android:id="@+id/TextView02" android:layout_below="@id/TextView01" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 </RelativeLayout>
