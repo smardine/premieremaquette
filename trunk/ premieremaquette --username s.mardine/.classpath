@@ -3,5 +3,6 @@
 	<classpathentry excluding="fr/smardine/android/premiereMaquette/RecupXmlFile.java|Thread/DownloadFileTask.java|fr/smardine/android/premiereMaquette/CopyOfCopyOfDownloadFile.java|fr/smardine/android/premiereMaquette/CopyOfDownloadFile.java" kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
