@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-android:id="@+id/widget63"
+android:id="@+id/Layout_FicheClient"
 xmlns:android="http://schemas.android.com/apk/res/android"
 android:visibility="visible" 
 android:layout_height="wrap_content" 
 android:layout_width="wrap_content" android:background="#ffffffff">
 <ImageView
-android:src="@drawable/eqx_v_500x372"
 android:layout_alignParentTop="true"
 android:layout_alignParentLeft="true"
 android:layout_width="wrap_content" 
-android:id="@+id/ImgEqnx" 
+android:id="@+id/ImgCalendr" 
 android:layout_alignParentRight="true" 
 android:layout_alignParentBottom="false" 
-android:layout_height="wrap_content">
+android:layout_height="wrap_content" 
+android:src="@drawable/calendrier_128">
 </ImageView>
-<EditText android:layout_below="@id/ImgEqnx" 
+<EditText  
 android:layout_width="wrap_content" 
 android:layout_height="wrap_content" 
 android:text="Nom du patient" 

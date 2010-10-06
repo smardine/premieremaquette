@@ -3,41 +3,45 @@
 android:id="@+id/widget63"
 xmlns:android="http://schemas.android.com/apk/res/android"
 android:visibility="visible" 
-android:layout_height="wrap_content" 
-android:layout_width="wrap_content" 
-android:background="#ffffffff">
-<ImageView
-android:src="@drawable/eqx_v_500x372"
-android:layout_alignParentTop="true"
-android:layout_alignParentLeft="true"
-android:layout_width="wrap_content" 
-android:id="@+id/ImgEqnx" 
-android:layout_alignParentRight="true" 
-android:layout_alignParentBottom="false" 
-android:layout_height="wrap_content">
-</ImageView>
+android:background="#ffffffff" android:layout_height="fill_parent" android:layout_width="fill_parent">
+
 <Button android:layout_alignParentLeft="true" 
 android:id="@+id/BtClient" 
 android:clickable="true" 
 android:visibility="visible"
-android:textColor="#ff000000" android:layout_height="wrap_content" android:layout_width="wrap_content" android:layout_above="@+id/BTPieceJointe" android:drawableTop="@drawable/client_icone96" android:text="Clients" android:background="#ffffffff" android:layout_marginLeft="15px">
-</Button><Button
+android:textColor="#ff000000" 
+android:layout_height="wrap_content" 
+android:layout_width="wrap_content" 
+android:layout_above="@+id/BTPieceJointe" 
+android:drawableTop="@drawable/client_icone96" 
+android:text="Clients" 
+android:background="#ffffffff" 
+android:layout_marginLeft="15px">
+</Button>
+
+<Button
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:layout_alignParentBottom="true" 
 android:id="@+id/BTPieceJointe" 
-android:layout_centerHorizontal="false" android:drawableTop="@drawable/piece_jointe96" android:background="#ffffffff" android:text="Pièces Jointes" android:layout_alignBaseline="@+id/BtParam" android:layout_marginLeft="15px">
+android:layout_centerHorizontal="false" 
+android:drawableTop="@drawable/piece_jointe96" 
+android:background="#ffffffff" 
+android:text="Pièces Jointes" 
+android:layout_alignBaseline="@+id/BtParam" 
+android:layout_marginLeft="15px">
 </Button>
-
-
-
 <Button
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:layout_alignParentRight="true"
 android:id="@+id/BtTournee" 
 android:visibility="visible" 
-android:layout_alignBottom="@+id/ImgEqnx" android:layout_alignBaseline="@+id/BtClient" android:layout_alignRight="@+id/ImgEqnx" android:text="Tournées" android:drawableTop="@drawable/voiture96" android:background="#ffffffff" android:layout_marginRight="15px">
+android:layout_alignBaseline="@+id/BtClient" 
+android:text="Tournées" 
+android:drawableTop="@drawable/voiture96" 
+android:background="#ffffffff" 
+android:layout_marginRight="15px">
 </Button>
 <Button
 android:layout_width="wrap_content"
@@ -45,11 +49,29 @@ android:layout_height="wrap_content"
 android:layout_alignParentBottom="true"
 android:layout_alignParentRight="true"
 android:id="@+id/BtParam" 
-android:layout_above="@+id/TxtParam" android:background="#ffffffff" android:drawableTop="@drawable/parametres_96" android:text="Parametres" android:layout_marginRight="15px">
+android:layout_above="@+id/TxtParam" 
+android:background="#ffffffff" 
+android:drawableTop="@drawable/parametres_96" 
+android:text="Parametres" 
+android:layout_marginRight="15px">
 </Button>
+<TextView 
+android:text="@+id/TexteDate" 
+android:id="@+id/TexteDate"  
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content" 
+android:textColor="#ff000000" 
+android:textSize="25px" android:layout_centerHorizontal="true">
+</TextView>
 
-
-
-
-
+<DigitalClock 
+android:text="@+id/DigitalClock01" 
+android:id="@+id/DigitalClock01" 
+android:layout_below="@id/TexteDate" 
+android:layout_width="wrap_content" 
+android:layout_height="wrap_content" 
+android:textSize="25px" 
+android:textColor="#ff000000" 
+android:layout_centerHorizontal="true">
+</DigitalClock>
 </RelativeLayout>
