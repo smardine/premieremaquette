@@ -16,13 +16,52 @@ import android.widget.ListView;
 
 public class FicheClient extends Activity implements OnClickListener {
 	ArrayList<produit> produits = new ArrayList<produit>(); 
+	private  BDAcces objBd;
+	
+	@SuppressWarnings("rawtypes")
 	public void onCreate(Bundle savedInstanceState) {
 	   	 	super.onCreate(savedInstanceState);
 	   	 	//appel du fichier "ficheclient.xml"
 	        setContentView(R.layout.fiche_client);
 	        //definition du titre
 	        this.setTitle("Fiches Clients");
-	        produits.add(new produit("ESSAI Faust","05/04/1993"));
+	        objBd = new BDAcces(this);
+	        objBd.open();
+	        
+	        String [] NomClients= new String[] {"ESSAI","CARTE","TREIZE","SPECIMEN","ESSAI"};
+	        String [] PrenomClients = new String[]{"Faust","Lucille","Hugo","Carte","Agathe"};
+	        String [] DateAnniv = new String[] {"05/04/1993","20/03/1961","01/10/2007","01/04/1964","15/04/1982"};
+	        long bresult = 0;
+	        for (int i=0;i<NomClients.length;i++){
+	        	bresult = objBd.insertClient(NomClients[i], PrenomClients[i],DateAnniv[i]);
+	        }
+	        
+	        
+			//String resultsring = new Long(bresult).toString() ;
+        	//textbas.setText(resultsring);
+        	//textmilieu.setText(sContenuRecette);
+        	objBd.close();
+        	
+        	objBd.open();
+        	
+        	ArrayList[] ListeClient = objBd.renvoi_liste_client();
+        	int nbdobjet = ListeClient[0].size();
+        	
+        	
+        	for (int j=0;j<nbdobjet;j++){
+        		
+        		String Nom = ListeClient[0].get(j).toString();
+        		String Pnom = ListeClient[1].get(j).toString();
+        		String Anniv = ListeClient[2].get(j).toString();
+        		
+        		produits.add (new produit (Nom+" "+Pnom,Anniv));
+        	}
+        	objBd.close();
+	        
+	        
+	        
+	        
+	      /*  produits.add(new produit("ESSAI Faust","05/04/1993"));
 	        produits.add(new produit("CARTE Lucille","20/03/1961"));
 	        produits.add(new produit("TREIZE Hugo","01/10/2007"));
 	        produits.add(new produit("SPECIMEN CARTE Marie-Amelie","01/04/1964"));
@@ -34,7 +73,7 @@ public class FicheClient extends Activity implements OnClickListener {
 	        produits.add(new produit("ESSAI Alexis","04/09/1989"));
 	        produits.add(new produit("MEDECIN Gladys","25/08/1963"));
 	        produits.add(new produit("JEAN-CHARLES Lidiana","22/12/1984"));
-	        produits.add(new produit("ECLANCHER Roselyne","03/08/1949"));
+	        produits.add(new produit("ECLANCHER Roselyne","03/08/1949"));*/
 	        
 	        //afficher le contenu de l'ArrayList "produits" dans une ListView
 	        //- créer le ListAdapter dérivant d'un baseAdapter
