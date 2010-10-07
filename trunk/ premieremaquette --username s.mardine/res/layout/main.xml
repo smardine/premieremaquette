@@ -5,7 +5,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 android:visibility="visible" 
 android:background="#ffffffff" android:layout_height="fill_parent" android:layout_width="fill_parent">
 
-<Button android:layout_alignParentLeft="true" 
+<AnalogClock android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/AnalogClock01" android:layout_centerHorizontal="true"></AnalogClock><Button android:layout_alignParentLeft="true" 
 android:id="@+id/BtClient" 
 android:clickable="true" 
 android:visibility="visible"
@@ -55,23 +55,10 @@ android:drawableTop="@drawable/parametres_96"
 android:text="Parametres" 
 android:layout_marginRight="15px">
 </Button>
-<TextView 
-android:text="@+id/TexteDate" 
-android:id="@+id/TexteDate"  
-android:layout_width="wrap_content" 
-android:layout_height="wrap_content" 
-android:textColor="#ff000000" 
-android:textSize="25px" android:layout_centerHorizontal="true">
-</TextView>
 
-<DigitalClock 
-android:text="@+id/DigitalClock01" 
-android:id="@+id/DigitalClock01" 
-android:layout_below="@id/TexteDate" 
-android:layout_width="wrap_content" 
-android:layout_height="wrap_content" 
-android:textSize="25px" 
-android:textColor="#ff000000" 
-android:layout_centerHorizontal="true">
-</DigitalClock>
+
+
+
+<TextView android:text="@+id/TexteDate" android:id="@+id/TexteDate" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="#ff000000" android:textSize="40px" android:layout_below="@+id/AnalogClock01" android:layout_centerHorizontal="true">
+</TextView>
 </RelativeLayout>
