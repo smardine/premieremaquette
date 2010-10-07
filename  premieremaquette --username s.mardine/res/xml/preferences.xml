@@ -14,5 +14,6 @@ android:summary="Saisir votre mot de passe">
 </EditTextPreference>
 
 
+
 </PreferenceCategory>
 </PreferenceScreen>
